@@ -1,9 +1,10 @@
-import fs from "fs";
+const fs = require("fs");
+
+const packageJson = require("./package.json");
 
 const NAME = "@suilend/frontend-sui";
 
 // 1. Update package.json
-import packageJson from "./package.json";
 const newPackageJson = Object.assign({}, packageJson) as any;
 
 newPackageJson["name"] = NAME;
