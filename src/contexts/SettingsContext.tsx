@@ -10,7 +10,7 @@ import {
   RPCS,
   Rpc,
   RpcId,
-} from "@/lib/constants";
+} from "../lib/constants";
 
 interface SettingsContext {
   rpc: Rpc;

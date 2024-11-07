@@ -2,7 +2,7 @@ import { ReactNode } from "react";
 
 import { ExternalToast, toast } from "sonner";
 
-import { TOAST_DURATION_MS, TX_TOAST_DURATION_MS } from "@/lib/constants";
+import { TOAST_DURATION_MS, TX_TOAST_DURATION_MS } from "../lib/constants";
 
 export const onDismiss = (callback: () => void) => {
   for (let i = 0; i < 10; i++) toast.dismiss();

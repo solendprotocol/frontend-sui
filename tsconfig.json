@@ -4,10 +4,7 @@
     "jsx": "preserve",
     "resolveJsonModule": true,
     "declaration": true,
-    "outDir": "dist",
-    "paths": {
-      "@/*": ["./src/*"]
-    }
+    "outDir": "dist"
   },
   "include": ["./src/**/*.ts", "./src/**/*.tsx"],
   "exclude": ["node_modules"]

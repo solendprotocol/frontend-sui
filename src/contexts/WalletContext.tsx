@@ -43,9 +43,10 @@ import BigNumber from "bignumber.js";
 import { useLDClient } from "launchdarkly-react-client-sdk";
 import { executeAuction } from "shio-sdk";
 
-import { useSettingsContext } from "@/contexts/SettingsContext";
-import { formatAddress } from "@/lib/format";
-import { toast_error, toast_info } from "@/lib/toasts";
+import { formatAddress } from "../lib/format";
+import { toast_error, toast_info } from "../lib/toasts";
+
+import { useSettingsContext } from "./SettingsContext";
 
 export enum WalletType {
   EXTENSION = "extension",
