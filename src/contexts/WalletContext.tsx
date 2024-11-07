@@ -138,7 +138,6 @@ interface WalletContext {
 
   address?: string;
   signExecuteAndWaitForTransaction: (
-    suiClient: SuiClient,
     transaction: Transaction,
     options?: { auction?: boolean },
   ) => Promise<SuiTransactionBlockResponse>;
@@ -174,7 +173,14 @@ const WalletContext = createContext<WalletContext>({
 
 export const useWalletContext = () => useContext(WalletContext);
 
-export function WalletContextProvider({ children }: PropsWithChildren) {
+interface WalletContextProviderProps extends PropsWithChildren {
+  suiClient: SuiClient;
+}
+
+export function WalletContextProvider({
+  suiClient,
+  children,
+}: WalletContextProviderProps) {
   const router = useRouter();
   const queryParams = {
     [QueryParams.WALLET]: router.query[QueryParams.WALLET] as
@@ -383,13 +389,8 @@ export function WalletContextProvider({ children }: PropsWithChildren) {
   const { gasBudget } = useSettingsContext();
   const { mutateAsync: signTransaction } = useSignTransaction();
 
-  // Note: Do NOT import and use this function directly. Instead, use signExecuteAndWaitForTransaction from AppContext.
   const signExecuteAndWaitForTransaction = useCallback(
-    async (
-      suiClient: SuiClient,
-      transaction: Transaction,
-      options?: { auction?: boolean },
-    ) => {
+    async (transaction: Transaction, options?: { auction?: boolean }) => {
       if (gasBudget !== "")
         transaction.setGasBudget(
           +new BigNumber(gasBudget)
@@ -464,7 +465,13 @@ export function WalletContextProvider({ children }: PropsWithChildren) {
         throw err;
       }
     },
-    [gasBudget, impersonatedAddress, account?.address, signTransaction],
+    [
+      gasBudget,
+      impersonatedAddress,
+      account?.address,
+      suiClient,
+      signTransaction,
+    ],
   );
 
   // Context
