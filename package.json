@@ -1,0 +1,58 @@
+{
+  "name": "@suilend/frontend-sui-local",
+  "version": "0.1.0",
+  "private": true,
+  "description": "A collection of TypeScript frontend components and libraries used by Suilend and SpringSui",
+  "author": "Suilend",
+  "license": "MIT",
+  "main": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.js"
+  },
+  "types": "./src/index.ts",
+  "scripts": {
+    "build": "rm -rf ./dist && bun tsc",
+    "eslint": "eslint --fix \"./src/**/*.ts\"",
+    "prettier": "prettier --write \"./src/**/*\"",
+    "lint": "bun eslint && bun prettier && bun tsc --noEmit",
+    "release": "bun run build && bun ts-node ./release.ts && cd ./dist && npm publish --access public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/solendprotocol/frontend-sui.git"
+  },
+  "bugs": {
+    "url": "https://github.com/solendprotocol/frontend-sui/issues"
+  },
+  "dependencies": {
+    "@mysten/dapp-kit": "0.14.30",
+    "@mysten/sui": "1.14.2",
+    "@mysten/wallet-standard": "0.13.11",
+    "@sentry/nextjs": "^8",
+    "bignumber.js": "^9.1.2",
+    "launchdarkly-react-client-sdk": "^3.1.0",
+    "next": "^15.0.2",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "shio-sdk": "^1.0.8",
+    "sonner": "^1.4.41",
+    "usehooks-ts": "^3.1.0"
+  },
+  "devDependencies": {
+    "@tsconfig/next": "^2.0.3",
+    "@tsconfig/recommended": "^1.0.8",
+    "@types/node": "^20.12.7",
+    "@types/react": "^18.3.1",
+    "@types/react-dom": "^18.3.1",
+    "@typescript-eslint/eslint-plugin": "^8.8.1",
+    "@typescript-eslint/parser": "^8.0.0",
+    "eslint": "8.57.0",
+    "eslint-config-next": "14.1.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-import": "^2.29.1",
+    "eslint-plugin-prettier": "^5.1.3",
+    "prettier": "^3.2.5",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.3.3"
+  }
+}

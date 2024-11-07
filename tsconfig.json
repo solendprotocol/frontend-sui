@@ -1,0 +1,21 @@
+{
+  "extends": [
+    "@tsconfig/recommended/tsconfig.json",
+    "@tsconfig/next/tsconfig.json"
+  ],
+  "compilerOptions": {
+    "resolveJsonModule": true,
+    "declaration": true,
+    "outDir": "dist",
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  },
+  "include": [
+    "next-env.d.ts",
+    "./src/**/*.ts",
+    "./src/**/*.tsx",
+    ".next/types/**/*.ts"
+  ],
+  "exclude": ["node_modules"]
+}
