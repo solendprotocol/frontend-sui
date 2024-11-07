@@ -4,18 +4,20 @@ const NAME = "@suilend/frontend-sui";
 
 // 1. Update package.json
 import packageJson from "./package.json";
-const newPackageJson = Object.assign({}, packageJson);
+const newPackageJson = Object.assign({}, packageJson) as any;
 
 newPackageJson["name"] = NAME;
 newPackageJson["private"] = false;
-newPackageJson["main"] = "./index.js";
 
 const exportsMap: Record<string, string> = {
   ".": "./index.js",
 };
 const files = (
   fs.readdirSync("./dist/", { recursive: true }) as string[]
-).filter((file) => file !== "index.js" && file.endsWith(".js"));
+).filter(
+  (file) =>
+    file !== "index.js" && (file.endsWith(".js") || file.endsWith(".jsx")),
+);
 for (const file of files) {
   const fileName = file.substring(
     0,
@@ -25,9 +27,7 @@ for (const file of files) {
   );
   exportsMap[`./${fileName}`] = `./${file}`;
 }
-newPackageJson["exports"] = exportsMap as any;
-
-newPackageJson["types"] = "./index.js";
+newPackageJson["exports"] = exportsMap;
 
 fs.writeFileSync("./dist/package.json", JSON.stringify(newPackageJson), "utf8");
 
