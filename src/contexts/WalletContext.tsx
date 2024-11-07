@@ -12,6 +12,12 @@ import {
   useState,
 } from "react";
 
+import { MSafeWallet } from "@msafe/sui-wallet";
+import {
+  WalletProvider as MystenWalletProvider,
+  SuiClientProvider,
+  createNetworkConfig,
+} from "@mysten/dapp-kit";
 import {
   useAccounts,
   useConnectWallet,
@@ -25,12 +31,14 @@ import {
 import { SuiClient, SuiTransactionBlockResponse } from "@mysten/sui/client";
 import { Transaction } from "@mysten/sui/transactions";
 import { SUI_DECIMALS } from "@mysten/sui/utils";
+import { registerWallet } from "@mysten/wallet-standard";
 import {
   WalletAccount,
   WalletIcon,
   WalletWithRequiredFeatures,
 } from "@mysten/wallet-standard";
 import * as Sentry from "@sentry/nextjs";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import BigNumber from "bignumber.js";
 import { useLDClient } from "launchdarkly-react-client-sdk";
 import { executeAuction } from "shio-sdk";
@@ -172,14 +180,11 @@ const WalletContext = createContext<WalletContext>({
 
 export const useWalletContext = () => useContext(WalletContext);
 
-interface WalletContextProviderProps extends PropsWithChildren {
+interface InnerProps extends PropsWithChildren {
   suiClient: SuiClient;
 }
 
-export function WalletContextProvider({
-  suiClient,
-  children,
-}: WalletContextProviderProps) {
+function Inner({ suiClient, children }: InnerProps) {
   const router = useRouter();
   const queryParams = {
     [QueryParams.WALLET]: router.query[QueryParams.WALLET] as
@@ -510,5 +515,45 @@ export function WalletContextProvider({
     <WalletContext.Provider value={contextValue}>
       {children}
     </WalletContext.Provider>
+  );
+}
+
+interface WalletContextProviderProps extends InnerProps {
+  appName: string;
+}
+
+export function WalletContextProvider({
+  appName,
+  suiClient,
+  children,
+}: WalletContextProviderProps) {
+  const { rpc } = useSettingsContext();
+
+  const { networkConfig } = createNetworkConfig({
+    mainnet: { url: rpc.url },
+  });
+  const queryClient = new QueryClient();
+
+  // MSafe Wallet
+  const didRegisterMsafeWalletRef = useRef<boolean>(false);
+  useEffect(() => {
+    if (didRegisterMsafeWalletRef.current) return;
+
+    registerWallet(new MSafeWallet(appName, rpc.url, "sui:mainnet"));
+    didRegisterMsafeWalletRef.current = true;
+  }, [appName, rpc.url]);
+
+  return (
+    <QueryClientProvider client={queryClient}>
+      <SuiClientProvider networks={networkConfig} defaultNetwork="mainnet">
+        <MystenWalletProvider
+          preferredWallets={DEFAULT_EXTENSION_WALLET_NAMES}
+          autoConnect
+          stashedWallet={{ name: appName }}
+        >
+          <Inner suiClient={suiClient}>{children}</Inner>
+        </MystenWalletProvider>
+      </SuiClientProvider>
+    </QueryClientProvider>
   );
 }
