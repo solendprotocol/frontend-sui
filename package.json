@@ -39,6 +39,7 @@
     "usehooks-ts": "^3.1.0"
   },
   "devDependencies": {
+    "@tsconfig/next": "^2.0.3",
     "@tsconfig/recommended": "^1.0.8",
     "@types/node": "^20.12.7",
     "@types/react": "^18.3.1",
