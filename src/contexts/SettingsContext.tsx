@@ -1,5 +1,6 @@
 import { PropsWithChildren, createContext, useContext, useMemo } from "react";
 
+import { SuiClient, getFullnodeUrl } from "@mysten/sui/client";
 import { useLocalStorage } from "usehooks-ts";
 
 import {
@@ -21,6 +22,8 @@ interface SettingsContext {
 
   gasBudget: string;
   setGasBudget: (value: string) => void;
+
+  suiClient: SuiClient;
 }
 
 const defaultContextValue: SettingsContext = {
@@ -41,6 +44,8 @@ const defaultContextValue: SettingsContext = {
   setGasBudget: () => {
     throw Error("SettingsContextProvider not initialized");
   },
+
+  suiClient: new SuiClient({ url: getFullnodeUrl("mainnet") }),
 };
 
 const SettingsContext = createContext<SettingsContext>(defaultContextValue);
@@ -82,6 +87,9 @@ export function SettingsContextProvider({ children }: PropsWithChildren) {
     defaultContextValue.gasBudget,
   );
 
+  // Sui client
+  const suiClient = useMemo(() => new SuiClient({ url: rpc.url }), [rpc.url]);
+
   // Context
   const contextValue: SettingsContext = useMemo(
     () => ({
@@ -94,6 +102,8 @@ export function SettingsContextProvider({ children }: PropsWithChildren) {
 
       gasBudget,
       setGasBudget,
+
+      suiClient,
     }),
     [
       rpc,
@@ -103,6 +113,7 @@ export function SettingsContextProvider({ children }: PropsWithChildren) {
       setExplorerId,
       gasBudget,
       setGasBudget,
+      suiClient,
     ],
   );
 
