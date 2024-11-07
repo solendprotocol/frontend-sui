@@ -8,6 +8,7 @@ const newPackageJson = Object.assign({}, packageJson) as any;
 
 newPackageJson["name"] = NAME;
 newPackageJson["private"] = false;
+newPackageJson["main"] = "./index.js";
 
 const exportsMap: Record<string, string> = {
   ".": "./index.js",
@@ -28,6 +29,8 @@ for (const file of files) {
   exportsMap[`./${fileName}`] = `./${file}`;
 }
 newPackageJson["exports"] = exportsMap;
+
+newPackageJson["types"] = "./index.js";
 
 fs.writeFileSync("./dist/package.json", JSON.stringify(newPackageJson), "utf8");
 
