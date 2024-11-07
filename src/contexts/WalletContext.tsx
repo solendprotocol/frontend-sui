@@ -37,8 +37,7 @@ import { executeAuction } from "shio-sdk";
 
 import { useSettingsContext } from "@/contexts/SettingsContext";
 import { formatAddress } from "@/lib/format";
-
-import { toast_error, toast_info } from "@/lib";
+import { toast_error, toast_info } from "@/lib/toasts";
 
 export enum WalletType {
   EXTENSION = "extension",

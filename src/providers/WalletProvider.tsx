@@ -9,9 +9,8 @@ import {
 import { registerWallet } from "@mysten/wallet-standard";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
+import { useSettingsContext } from "@/contexts/SettingsContext";
 import { DEFAULT_EXTENSION_WALLET_NAMES } from "@/contexts/WalletContext";
-
-import { useSettingsContext } from "@/contexts";
 
 interface WalletProviderProps extends PropsWithChildren {
   appName: string;
