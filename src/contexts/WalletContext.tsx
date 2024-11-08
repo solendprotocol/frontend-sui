@@ -334,7 +334,7 @@ function Inner({ suiClient, children }: InnerProps) {
         connectWallet({ wallet: _wallet.raw });
         toast_info(`Connected ${_wallet.name}`);
 
-        // setIsConnectWalletDropdownOpen(false);
+        setIsConnectWalletDropdownOpen(false);
       } catch (err) {
         toast_error(`Failed to connect ${_wallet.name}`, err as Error);
         console.error(err);
