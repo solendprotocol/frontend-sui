@@ -44,7 +44,7 @@ import { useLDClient } from "launchdarkly-react-client-sdk";
 import { executeAuction } from "shio-sdk";
 
 import { formatAddress } from "../lib/format";
-import { toast_error, toast_info } from "../lib/toasts";
+import toast from "../lib/toast";
 
 import { useSettingsContext } from "./SettingsContext";
 
@@ -332,11 +332,11 @@ function Inner({ suiClient, children }: InnerProps) {
         if (!_wallet.raw) throw new Error("Missing wallet");
 
         connectWallet({ wallet: _wallet.raw });
-        toast_info(`Connected ${_wallet.name}`);
+        toast.info(`Connected ${_wallet.name}`);
 
         setIsConnectWalletDropdownOpen(false);
       } catch (err) {
-        toast_error(`Failed to connect ${_wallet.name}`, err as Error);
+        toast.error(`Failed to connect ${_wallet.name}`, err as Error);
         console.error(err);
       }
     },
@@ -346,7 +346,7 @@ function Inner({ suiClient, children }: InnerProps) {
   const { mutate: disconnectWallet } = useDisconnectWallet();
   const disconnectWalletWrapper = useCallback(() => {
     disconnectWallet();
-    toast_info("Disconnected wallet");
+    toast.info("Disconnected wallet");
   }, [disconnectWallet]);
 
   // Accounts
@@ -357,7 +357,7 @@ function Inner({ suiClient, children }: InnerProps) {
   const switchAccountWrapper = useCallback(
     (_account: WalletAccount, addressNameServiceName?: string) => {
       switchAccount({ account: _account });
-      toast_info(
+      toast.info(
         `Switched to ${_account?.label ?? addressNameServiceName ?? formatAddress(_account.address)}`,
         {
           description: _account?.label

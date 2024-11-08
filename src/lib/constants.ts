@@ -1,7 +1,6 @@
 export const msPerYear = 31556952000; // Approx. 1000 * 60 * 60 * 24 * 365;
 
-export const TOAST_DURATION_MS = 4 * 1000;
-export const TX_TOAST_DURATION_MS = 10 * 1000;
+export const TOAST_DURATION_MS = 5 * 1000;
 
 export const SUI_GAS_MIN = 0.05;
 
