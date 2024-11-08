@@ -4,7 +4,7 @@ import useSWR from "swr";
 
 import { useSettingsContext } from "../contexts/SettingsContext";
 import { useWalletContext } from "../contexts/WalletContext";
-import toast from "../lib/toast";
+import { showErrorToast } from "../lib";
 
 export default function useFetchBalances() {
   const { suiClient } = useSettingsContext();
@@ -42,7 +42,7 @@ export default function useFetchBalances() {
         console.log("Refreshed wallet balances", data);
       },
       onError: (err) => {
-        toast.error("Failed to refresh wallet balances", err);
+        showErrorToast("Failed to refresh wallet balances", err);
         console.error(err);
       },
     },

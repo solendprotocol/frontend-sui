@@ -1,3 +1,3 @@
 export * from "./constants";
 export * from "./format";
-export * from "./toast";
+export * from "./toasts";
