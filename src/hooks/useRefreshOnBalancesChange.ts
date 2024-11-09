@@ -1,14 +1,12 @@
 import { useEffect, useRef } from "react";
 
-import { CoinBalance, SuiClient } from "@mysten/sui/client";
+import { CoinBalance } from "@mysten/sui/client";
 import { isEqual } from "lodash";
 
-import { useWalletContext } from "../contexts";
+import { useSettingsContext, useWalletContext } from "../contexts";
 
-const useRefreshOnBalancesChange = async (
-  suiClient: SuiClient,
-  refresh: () => Promise<void>,
-) => {
+const useRefreshOnBalancesChange = async (refresh: () => Promise<void>) => {
+  const { suiClient } = useSettingsContext();
   const { address } = useWalletContext();
 
   const previousBalancesRef = useRef<CoinBalance[] | undefined>(undefined);

@@ -28,7 +28,7 @@ import {
   useSwitchAccount,
   useWallets,
 } from "@mysten/dapp-kit";
-import { SuiClient, SuiTransactionBlockResponse } from "@mysten/sui/client";
+import { SuiTransactionBlockResponse } from "@mysten/sui/client";
 import { Transaction } from "@mysten/sui/transactions";
 import { SUI_DECIMALS } from "@mysten/sui/utils";
 import { registerWallet } from "@mysten/wallet-standard";
@@ -181,17 +181,15 @@ const WalletContext = createContext<WalletContext>({
 
 export const useWalletContext = () => useContext(WalletContext);
 
-interface InnerProps extends PropsWithChildren {
-  suiClient: SuiClient;
-}
-
-function Inner({ suiClient, children }: InnerProps) {
+function Inner({ children }: PropsWithChildren) {
   const router = useRouter();
   const queryParams = {
     [QueryParams.WALLET]: router.query[QueryParams.WALLET] as
       | string
       | undefined,
   };
+
+  const { suiClient } = useSettingsContext();
 
   // Impersonated address
   const impersonatedAddress = queryParams[QueryParams.WALLET];
@@ -519,13 +517,12 @@ function Inner({ suiClient, children }: InnerProps) {
   );
 }
 
-interface WalletContextProviderProps extends InnerProps {
+interface WalletContextProviderProps extends PropsWithChildren {
   appName: string;
 }
 
 export function WalletContextProvider({
   appName,
-  suiClient,
   children,
 }: WalletContextProviderProps) {
   const { rpc } = useSettingsContext();
@@ -552,7 +549,7 @@ export function WalletContextProvider({
           autoConnect
           stashedWallet={{ name: appName }}
         >
-          <Inner suiClient={suiClient}>{children}</Inner>
+          <Inner>{children}</Inner>
         </MystenWalletProvider>
       </SuiClientProvider>
     </QueryClientProvider>

@@ -11,7 +11,6 @@ export default function useFetchBalances() {
   const { address } = useWalletContext();
 
   const dataFetcher = async () => {
-    // Balances
     const balancesMap: Record<string, BigNumber> = {};
 
     if (address) {
