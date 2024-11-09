@@ -6,7 +6,7 @@ import BigNumber from "bignumber.js";
 import { useSettingsContext } from "../contexts";
 import { getCoinMetadataMap } from "../lib/coinMetadata";
 
-const useBalancesCoinMetadataMap = async (
+const useBalancesCoinMetadataMap = (
   rawBalancesMap: Record<string, BigNumber> | undefined,
 ) => {
   const { suiClient } = useSettingsContext();
