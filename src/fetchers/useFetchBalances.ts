@@ -23,9 +23,8 @@ export default function useFetchBalances() {
         .sort((a, b) => (a.coinType < b.coinType ? -1 : 1));
 
       for (const rawBalance of rawBalances) {
-        balancesMap[rawBalance.coinType] = new BigNumber(
-          rawBalance.totalBalance,
-        );
+        const totalBalance = new BigNumber(rawBalance.totalBalance);
+        if (totalBalance.gt(0)) balancesMap[rawBalance.coinType] = totalBalance;
       }
     }
 
