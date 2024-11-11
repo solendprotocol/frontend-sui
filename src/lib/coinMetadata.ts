@@ -44,3 +44,12 @@ export const getCoinMetadataMap = async (
     return {};
   }
 };
+
+export type Token = CoinMetadata & {
+  coinType: string;
+};
+
+export const getToken = (coinType: string, coinMetadata: CoinMetadata) => ({
+  coinType,
+  ...coinMetadata,
+});
