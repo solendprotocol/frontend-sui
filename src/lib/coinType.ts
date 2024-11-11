@@ -24,7 +24,8 @@ const suiETH_COINTYPE =
 const sSUI_COINTYPE =
   "0x83556891f4a0f233ce7b05cfe7f957d4020492a34f5405b2cb9377d060bef4bf::spring_sui::SPRING_SUI";
 
-const mSUI_COINTYPE = SUI_COINTYPE; // TODO: change to mSUI
+const mSUI_COINTYPE =
+  "0x3a5143bb1196e3bcdfab6203d1683ae29edd26294fc8bfeafe4aaa9d2704df37::coin::COIN"; // TODO: change to mSUI
 const BUCK_COINTYPE =
   "0xce7ff77a83ea0cb6fd39bd8748e2ec89a3f41e8efdc3f4eb123e0ca37b184db2::buck::BUCK";
 
