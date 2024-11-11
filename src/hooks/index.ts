@@ -1,2 +1,2 @@
-export * from "./useBalancesCoinMetadataMap";
+export * from "./useCoinMetadataMap";
 export * from "./useRefreshOnBalancesChange";
