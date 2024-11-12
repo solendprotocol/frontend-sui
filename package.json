@@ -1,6 +1,6 @@
 {
   "name": "@suilend/frontend-sui-local",
-  "version": "0.1.26",
+  "version": "0.1.27",
   "private": true,
   "description": "A collection of TypeScript frontend components and libraries used by Suilend and SpringSui",
   "author": "Suilend",
@@ -25,7 +25,7 @@
     "url": "https://github.com/solendprotocol/frontend-sui/issues"
   },
   "dependencies": {
-    "@msafe/sui-app-store": "^0.0.155",
+    "@msafe/sui-app-store": "^0.0.159",
     "@msafe/sui-wallet": "^0.0.77",
     "@msafe/sui3-utils": "^5.0.2",
     "@mysten/dapp-kit": "0.14.30",
