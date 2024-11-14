@@ -1,5 +1,7 @@
 import { normalizeStructTag } from "@mysten/sui/utils";
 
+import { LIQUID_STAKING_INFO_MAP } from "./lst";
+
 const SEND_POINTS_COINTYPE =
   "0x34fe4f3c9e450fed4d0a3c587ed842eec5313c30c3cc3c0841247c49425e246b::suilend_point::SUILEND_POINT";
 export const SUI_COINTYPE = "0x2::sui::SUI";
@@ -61,10 +63,9 @@ export const NORMALIZED_ETH_COINTYPES = [
   NORMALIZED_WETH_COINTYPE,
   NORMALIZED_suiETH_COINTYPE,
 ];
-export const NORMALIZED_LST_COINTYPES = [
-  NORMALIZED_sSUI_COINTYPE,
-  NORMALIZED_mSUI_COINTYPE,
-];
+export const NORMALIZED_LST_COINTYPES = Object.values(
+  LIQUID_STAKING_INFO_MAP,
+).map((info) => info.type); // May include non-reserves
 
 // 128x128
 export const COINTYPE_LOGO_MAP = {
