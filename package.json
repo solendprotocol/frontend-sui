@@ -1,6 +1,6 @@
 {
   "name": "@suilend/frontend-sui-local",
-  "version": "0.1.39",
+  "version": "0.1.40",
   "private": true,
   "description": "A collection of TypeScript frontend components and libraries used by Suilend and SpringSui",
   "author": "Suilend",
@@ -41,6 +41,7 @@
     "next": "^15.0.3",
     "react": "18.3.1",
     "react-dom": "18.3.1",
+    "react-responsive": "^10.0.0",
     "shio-sdk": "^1.0.8",
     "sonner": "1.4.41",
     "swr": "^2.2.5",
