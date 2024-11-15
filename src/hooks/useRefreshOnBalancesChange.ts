@@ -5,7 +5,7 @@ import { isEqual } from "lodash";
 
 import { useSettingsContext, useWalletContext } from "../contexts";
 
-const useRefreshOnBalancesChange = async (refresh: () => Promise<void>) => {
+const useRefreshOnBalancesChange = (refresh: () => Promise<void>) => {
   const { suiClient } = useSettingsContext();
   const { address } = useWalletContext();
 
