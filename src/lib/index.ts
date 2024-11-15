@@ -2,6 +2,7 @@ export * from "./coinMetadata";
 export * from "./coinType";
 export * from "./constants";
 export * from "./format";
+export * from "./liquidityMining";
 export * from "./lst";
 export * from "./router";
 export * from "./toasts";
