@@ -60,13 +60,15 @@ export function SettingsContextProvider({ children }: PropsWithChildren) {
   );
   const [rpcUrl, setRpcUrl] = useLocalStorage<string>("rpcUrl", "");
 
-  const customRpc = RPCS.find((_rpc) => _rpc.id === rpcId) as Rpc;
   const rpc = useMemo(
     () =>
-      rpcUrl
-        ? { ...customRpc, url: rpcUrl }
+      rpcId === RpcId.CUSTOM
+        ? {
+            ...(RPCS.find((_rpc) => _rpc.id === RpcId.CUSTOM) as Rpc),
+            url: rpcUrl,
+          }
         : (RPCS.find((_rpc) => _rpc.id === rpcId) ?? RPCS[0]),
-    [customRpc, rpcUrl, rpcId],
+    [rpcId, rpcUrl],
   );
 
   // Explorer
