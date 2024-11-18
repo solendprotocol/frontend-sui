@@ -117,7 +117,7 @@ const WALLET_DOWNLOAD_URLS_MAP: Record<string, Wallet["downloadUrls"]> = {
   },
 };
 
-export enum QueryParams {
+export enum WalletContextQueryParams {
   WALLET = "wallet",
 }
 
@@ -178,15 +178,15 @@ export const useWalletContext = () => useContext(WalletContext);
 function Inner({ children }: PropsWithChildren) {
   const router = useRouter();
   const queryParams = {
-    [QueryParams.WALLET]: router.query[QueryParams.WALLET] as
-      | string
-      | undefined,
+    [WalletContextQueryParams.WALLET]: router.query[
+      WalletContextQueryParams.WALLET
+    ] as string | undefined,
   };
 
   const { suiClient } = useSettingsContext();
 
   // Impersonated address
-  const impersonatedAddress = queryParams[QueryParams.WALLET];
+  const impersonatedAddress = queryParams[WalletContextQueryParams.WALLET];
 
   // Wallets
   const wallets__installed = useWallets();
