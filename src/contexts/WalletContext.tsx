@@ -45,6 +45,7 @@ import { executeAuction } from "shio-sdk";
 
 import { showErrorToast, showInfoToast } from "../lib";
 import { formatAddress } from "../lib/format";
+import { isInMsafeApp } from "../lib/msafe";
 
 import { useSettingsContext } from "./SettingsContext";
 
@@ -63,13 +64,6 @@ export type Wallet = {
   downloadUrls?: Record<WalletPlatform, string | undefined>;
   raw?: WalletWithRequiredFeatures;
 };
-
-export const isInMsafeApp = () =>
-  typeof window !== "undefined" &&
-  (window.location.host.includes("m-safe.io") ||
-    Array.from(window.location.ancestorOrigins).some((origin) =>
-      origin.includes("m-safe.io"),
-    ));
 
 enum WalletName {
   SUI_WALLET = "Sui Wallet",
