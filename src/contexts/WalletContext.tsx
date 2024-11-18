@@ -323,10 +323,21 @@ function Inner({ children }: PropsWithChildren) {
       try {
         if (!_wallet.raw) throw new Error("Missing wallet");
 
-        connectWallet({ wallet: _wallet.raw });
-        showInfoToast(`Connected ${_wallet.name}`);
+        connectWallet(
+          { wallet: _wallet.raw },
+          {
+            onSuccess: (data) => {
+              showInfoToast(`Connected ${_wallet.name}`);
+              setIsConnectWalletDropdownOpen(false);
 
-        setIsConnectWalletDropdownOpen(false);
+              console.log("XXX connected", data); // TEMP
+            },
+            onError: (err) => {
+              showErrorToast(`Failed to connect ${_wallet.name}`, err);
+              console.error(err);
+            },
+          },
+        );
       } catch (err) {
         showErrorToast(`Failed to connect ${_wallet.name}`, err as Error);
         console.error(err);
@@ -337,8 +348,22 @@ function Inner({ children }: PropsWithChildren) {
 
   const { mutate: disconnectWallet } = useDisconnectWallet();
   const disconnectWalletWrapper = useCallback(() => {
-    disconnectWallet();
-    showInfoToast("Disconnected wallet");
+    try {
+      disconnectWallet(undefined, {
+        onSuccess: (data) => {
+          showInfoToast("Disconnected wallet");
+
+          console.log("XXX disconnected", data); // TEMP
+        },
+        onError: (err) => {
+          showErrorToast("Failed to disconnect wallet", err);
+          console.error(err);
+        },
+      });
+    } catch (err) {
+      showErrorToast("Failed to disconnect wallet", err as Error);
+      console.error(err);
+    }
   }, [disconnectWallet]);
 
   // Accounts
@@ -348,15 +373,33 @@ function Inner({ children }: PropsWithChildren) {
 
   const switchAccountWrapper = useCallback(
     (_account: WalletAccount, addressNameServiceName?: string) => {
-      switchAccount({ account: _account });
-      showInfoToast(
-        `Switched to ${_account?.label ?? addressNameServiceName ?? formatAddress(_account.address)}`,
-        {
-          description: _account?.label
-            ? (addressNameServiceName ?? formatAddress(_account.address))
-            : undefined,
-        },
-      );
+      const accountLabel =
+        _account?.label ??
+        addressNameServiceName ??
+        formatAddress(_account.address);
+
+      try {
+        switchAccount(
+          { account: _account },
+          {
+            onSuccess: (data) => {
+              showInfoToast(`Switched to ${accountLabel}`, {
+                description: _account?.label
+                  ? (addressNameServiceName ?? formatAddress(_account.address))
+                  : undefined,
+              });
+
+              console.log("XXX SWITCHED", data); // TEMP
+            },
+            onError: (err) => {
+              showErrorToast(`Failed to switch to ${accountLabel}`, err);
+            },
+          },
+        );
+      } catch (err) {
+        showErrorToast(`Failed to switch to ${accountLabel}`, err as Error);
+        console.error(err);
+      }
     },
     [switchAccount],
   );

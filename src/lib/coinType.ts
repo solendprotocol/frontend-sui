@@ -70,6 +70,11 @@ export const NORMALIZED_LST_COINTYPES = Object.values(
   LIQUID_STAKING_INFO_MAP,
 ).map((info) => info.type); // May include non-reserves
 
+export const NON_SPONSORED_PYTH_PRICE_FEED_COINTYPES = [
+  NORMALIZED_HIPPO_COINTYPE,
+  NORMALIZED_NS_COINTYPE,
+];
+
 // 128x128
 export const COINTYPE_LOGO_MAP = {
   [NORMALIZED_SEND_POINTS_COINTYPE]:
