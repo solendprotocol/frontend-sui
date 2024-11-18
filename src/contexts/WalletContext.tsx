@@ -326,11 +326,9 @@ function Inner({ children }: PropsWithChildren) {
         connectWallet(
           { wallet: _wallet.raw },
           {
-            onSuccess: (data) => {
+            onSuccess: () => {
               showInfoToast(`Connected ${_wallet.name}`);
               setIsConnectWalletDropdownOpen(false);
-
-              console.log("XXX connected", data); // TEMP
             },
             onError: (err) => {
               showErrorToast(`Failed to connect ${_wallet.name}`, err);
@@ -350,10 +348,8 @@ function Inner({ children }: PropsWithChildren) {
   const disconnectWalletWrapper = useCallback(() => {
     try {
       disconnectWallet(undefined, {
-        onSuccess: (data) => {
+        onSuccess: () => {
           showInfoToast("Disconnected wallet");
-
-          console.log("XXX disconnected", data); // TEMP
         },
         onError: (err) => {
           showErrorToast("Failed to disconnect wallet", err);
@@ -382,14 +378,12 @@ function Inner({ children }: PropsWithChildren) {
         switchAccount(
           { account: _account },
           {
-            onSuccess: (data) => {
+            onSuccess: () => {
               showInfoToast(`Switched to ${accountLabel}`, {
                 description: _account?.label
                   ? (addressNameServiceName ?? formatAddress(_account.address))
                   : undefined,
               });
-
-              console.log("XXX SWITCHED", data); // TEMP
             },
             onError: (err) => {
               showErrorToast(`Failed to switch to ${accountLabel}`, err);
