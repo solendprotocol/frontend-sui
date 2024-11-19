@@ -70,7 +70,7 @@ const getBorrowShareUsd = (reserve: ParsedReserve, share: BigNumber) =>
 export const formatRewards = (
   parsedReserveMap: Record<string, ParsedReserve>,
   coinMetadataMap: Record<string, CoinMetadata>,
-  birdeyePriceMap?: Record<string, BigNumber | undefined>,
+  priceMap: Record<string, BigNumber | undefined>,
   obligations?: ParsedObligation[],
 ) => {
   const currentTime = new Date().getTime();
@@ -81,11 +81,8 @@ export const formatRewards = (
     poolReward: ParsedPoolReward,
     side: Side,
   ) => {
-    const rewardReserve = parsedReserveMap[poolReward.coinType];
     const rewardCoinMetadata = coinMetadataMap[poolReward.coinType];
-    const rewardBirdeyePrice = birdeyePriceMap?.[poolReward.coinType];
-
-    const rewardPrice = rewardReserve?.price ?? rewardBirdeyePrice;
+    const rewardPrice = priceMap?.[poolReward.coinType];
 
     const isActive =
       currentTime >= poolReward.startTimeMs &&
