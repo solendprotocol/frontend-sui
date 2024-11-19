@@ -6,7 +6,7 @@ const SEND_COINTYPE =
   "0xba2a31b3b21776d859c9fdfe797f52b069fe8fe0961605ab093ca4eb437d2632::ripleys::RIPLEYS"; // TODO: Replace with the actual coinType
 const SEND_POINTS_COINTYPE =
   "0x34fe4f3c9e450fed4d0a3c587ed842eec5313c30c3cc3c0841247c49425e246b::suilend_point::SUILEND_POINT";
-const SUI_COINTYPE = "0x2::sui::SUI";
+export const SUI_COINTYPE = "0x2::sui::SUI";
 const wUSDC_COINTYPE =
   "0x5d4b302506645c37ff133b98c4b50a5ae14841659738d6d733d59d0d217a93bf::coin::COIN";
 const USDT_COINTYPE =
