@@ -34,9 +34,18 @@ export const getCoinMetadataMap = async (
 
       coinMetadataMap[coinType] = {
         ...metadata,
-        iconUrl: COINTYPE_LOGO_MAP[coinType] ?? metadata.iconUrl,
+        iconUrl:
+          COINTYPE_LOGO_MAP[
+            isCTokenCoinType(coinType)
+              ? extractCTokenCoinType(coinType)
+              : coinType
+          ] ?? metadata.iconUrl,
         symbol:
-          COINTYPE_SYMBOL_MAP[coinType] ??
+          COINTYPE_SYMBOL_MAP[
+            isCTokenCoinType(coinType)
+              ? extractCTokenCoinType(coinType)
+              : coinType
+          ] ??
           metadata.symbol ??
           extractSymbolFromCoinType(coinType),
       };
