@@ -1,6 +1,6 @@
 {
   "name": "@suilend/frontend-sui-local",
-  "version": "0.1.53",
+  "version": "0.1.54",
   "private": true,
   "description": "A collection of TypeScript frontend components and libraries used by Suilend and SpringSui",
   "author": "Suilend",
@@ -32,7 +32,7 @@
     "@mysten/sui": "1.14.3",
     "@mysten/wallet-standard": "0.13.12",
     "@sentry/nextjs": "^8.38.0",
-    "@suilend/sdk": "^1.1.22",
+    "@suilend/sdk": "^1.1.23",
     "@suilend/springsui-sdk": "^1.0.11",
     "@tanstack/react-query": "^5.60.2",
     "bignumber.js": "^9.1.2",
