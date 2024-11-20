@@ -1,5 +1,7 @@
 import { CoinMetadata, SuiClient } from "@mysten/sui/client";
 
+import { extractCTokenCoinType, isCTokenCoinType } from "@suilend/sdk";
+
 import {
   COINTYPE_LOGO_MAP,
   COINTYPE_SYMBOL_MAP,
@@ -14,7 +16,13 @@ export const getCoinMetadataMap = async (
 
   try {
     const coinMetadata = await Promise.all(
-      uniqueCoinTypes.map((ct) => suiClient.getCoinMetadata({ coinType: ct })),
+      uniqueCoinTypes.map((coinType) =>
+        suiClient.getCoinMetadata({
+          coinType: isCTokenCoinType(coinType)
+            ? extractCTokenCoinType(coinType)
+            : coinType,
+        }),
+      ),
     );
 
     const coinMetadataMap: Record<string, CoinMetadata> = {};
@@ -23,18 +31,14 @@ export const getCoinMetadataMap = async (
       if (!metadata) continue;
 
       const coinType = uniqueCoinTypes[i];
-      const symbol =
-        COINTYPE_SYMBOL_MAP[coinType] ??
-        metadata?.symbol ??
-        extractSymbolFromCoinType(coinType);
-      const name = metadata?.name ?? symbol;
-      const iconUrl = COINTYPE_LOGO_MAP[coinType] ?? metadata?.iconUrl;
 
       coinMetadataMap[coinType] = {
         ...metadata,
-        symbol,
-        name,
-        iconUrl,
+        iconUrl: COINTYPE_LOGO_MAP[coinType] ?? metadata.iconUrl,
+        symbol:
+          COINTYPE_SYMBOL_MAP[coinType] ??
+          metadata.symbol ??
+          extractSymbolFromCoinType(coinType),
       };
     }
 
