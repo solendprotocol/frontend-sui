@@ -3,6 +3,7 @@ import { LiquidStakingObjectInfo } from "@suilend/springsui-sdk";
 export enum LstId {
   sSUI = "sSUI",
   mSUI = "mSUI",
+  fudSUI = "fudSUI",
   ripleysSUI = "ripleysSUI",
 }
 
@@ -24,5 +25,11 @@ export const LIQUID_STAKING_INFO_MAP: Record<LstId, LiquidStakingObjectInfo> = {
     type: "0xdc0c8026236f1be172ba03d7d689bfd663497cc5a730bf367bfb2e2c72ec6df8::ripleys::RIPLEYS",
     weightHookId:
       "0xfee25aa74038036cb1548a27a6824213c6a263c3aa45dc37b1c3fbe6037be7d2",
+  },
+  [LstId.fudSUI]: {
+    id: "0x7b4406fd4de96e08711729516f826e36f3268c2fefe6de985abc41192b02b871",
+    type: "0x02358129a7d66f943786a10b518fdc79145f1fc8d23420d9948c4aeea190f603::fud_sui::FUD_SUI",
+    weightHookId:
+      "0x33af323b12561bf362a2952e2bd5fe5a8e4799314b8bbf7c88033b2a8b6d2ec3",
   },
 };
