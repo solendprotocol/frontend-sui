@@ -80,6 +80,7 @@ export const NON_SPONSORED_PYTH_PRICE_FEED_COINTYPES = [
   NORMALIZED_HIPPO_COINTYPE,
   NORMALIZED_NS_COINTYPE,
 ];
+export const TEMPORARY_PYTH_PRICE_FEED_COINTYPES = [NORMALIZED_NS_COINTYPE];
 
 // 128x128
 export const COINTYPE_LOGO_MAP = {
@@ -172,11 +173,6 @@ export const getPythOracleUrl = (coinType: string) => {
   if (!symbol) return null;
 
   return `https://pyth.network/price-feeds/${symbol.toLowerCase().replace(/\.|\//g, "-")}?range=1W`;
-};
-
-export const COINTYPE_TEMPORARY_PYTH_PRICE_ID_MAP: Record<string, string> = {
-  [NORMALIZED_NS_COINTYPE]:
-    "fdf28a46570252b25fd31cb257973f865afc5ca2f320439e45d95e0394bc7382", // BUCK/USD
 };
 
 export const extractSymbolFromCoinType = (coinType: string) =>
