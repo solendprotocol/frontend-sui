@@ -12,7 +12,7 @@ import {
 } from "@suilend/sdk/client";
 import { WAD } from "@suilend/sdk/constants";
 import { parseLendingMarket } from "@suilend/sdk/parsers/lendingMarket";
-import { ParsedObligation } from "@suilend/sdk/parsers/obligation";
+import { parseObligation } from "@suilend/sdk/parsers/obligation";
 import { ParsedReserve } from "@suilend/sdk/parsers/reserve";
 import * as simulate from "@suilend/sdk/utils/simulate";
 
@@ -28,7 +28,7 @@ import { formatRewards } from "./liquidityMining";
 
 export const initializeSuilendSdk = async (
   suiClient: SuiClient,
-  obligations?: ParsedObligation[],
+  address?: string,
 ) => {
   const now = Math.floor(Date.now() / 1000);
   const rawLendingMarket = await LendingMarket.fetch(
@@ -120,6 +120,35 @@ export const initializeSuilendSdk = async (
     {},
   ) as Record<string, ParsedReserve>;
 
+  // Obligations
+  let obligationOwnerCaps, obligations;
+  if (address) {
+    obligationOwnerCaps = await SuilendClient.getObligationOwnerCaps(
+      address,
+      rawLendingMarket.$typeArgs,
+      suiClient,
+    );
+
+    obligations = (
+      await Promise.all(
+        obligationOwnerCaps.map((ownerCap) =>
+          SuilendClient.getObligation(
+            ownerCap.obligationId,
+            rawLendingMarket.$typeArgs,
+            suiClient,
+          ),
+        ),
+      )
+    )
+      .map((rawObligation) =>
+        simulate.refreshObligation(rawObligation, refreshedRawReserves),
+      )
+      .map((refreshedObligation) =>
+        parseObligation(refreshedObligation, reserveMap),
+      )
+      .sort((a, b) => +b.netValueUsd.minus(a.netValueUsd));
+  }
+
   // Rewards
   const rewardPriceMap: Record<string, BigNumber | undefined> = Object.entries(
     reserveMap,
@@ -158,5 +187,8 @@ export const initializeSuilendSdk = async (
 
     coinMetadataMap,
     rewardPriceMap,
+
+    obligationOwnerCaps,
+    obligations,
   };
 };
