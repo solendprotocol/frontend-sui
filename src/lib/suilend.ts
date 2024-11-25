@@ -23,6 +23,7 @@ import { fetchBirdeyePrice } from "./birdeye";
 import { getCoinMetadataMap } from "./coinMetadata";
 import {
   NORMALIZED_KOTO_COINTYPE,
+  NORMALIZED_SEND_COINTYPE,
   RESERVES_CUSTOM_ORDER,
   TEMPORARY_PYTH_PRICE_FEED_COINTYPES,
   isSendPoints,
@@ -72,7 +73,7 @@ export const initializeSuilendSdk = async (
     (reserve.smoothedPrice.value as bigint) = parsedPrice;
   }
 
-  const reserveCoinTypes: string[] = [];
+  const reserveCoinTypes: string[] = [NORMALIZED_SEND_COINTYPE]; // TEMP
   const rewardCoinTypes: string[] = [NORMALIZED_KOTO_COINTYPE];
   refreshedRawReserves.forEach((r) => {
     reserveCoinTypes.push(normalizeStructTag(r.coinType.name));
@@ -175,7 +176,7 @@ export const initializeSuilendRewards = async (
   reserveMap: Record<string, ParsedReserve>,
   rewardCoinTypes: string[],
   rewardCoinMetadataMap: Record<string, CoinMetadata>,
-  obligations: ParsedObligation[],
+  obligations?: ParsedObligation[],
 ) => {
   const rewardPriceMap: Record<string, BigNumber | undefined> = Object.entries(
     reserveMap,
