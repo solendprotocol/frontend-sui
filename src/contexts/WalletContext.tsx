@@ -450,7 +450,9 @@ function Inner({ children }: PropsWithChildren) {
             }
           } catch (err) {
             Sentry.captureException(err, {
-              extra: { simulation: true },
+              tags: {
+                simulation: true,
+              },
             });
             console.error(err);
             // throw err; - Do not rethrow error
