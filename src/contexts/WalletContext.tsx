@@ -400,9 +400,12 @@ function Inner({ children }: PropsWithChildren) {
 
   // Sentry
   useEffect(() => {
-    if (impersonatedAddress) return;
-    Sentry.setUser({ id: account?.address });
-  }, [impersonatedAddress, account?.address]);
+    if (impersonatedAddress || !account?.address) Sentry.setUser(null);
+    else {
+      Sentry.setUser({ id: account?.address });
+      Sentry.setTag("wallet", wallet?.name);
+    }
+  }, [impersonatedAddress, account?.address, wallet?.name]);
 
   // LaunchDarkly
   const ldClient = useLDClient();
