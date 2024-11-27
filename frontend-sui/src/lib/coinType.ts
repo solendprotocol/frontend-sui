@@ -40,6 +40,8 @@ const kSUI_COINTYPE =
 
 const KOTO_COINTYPE =
   "0xa99166e802527eeb5439cbda12b0a02851bf2305d3c96a592b1440014fcb8975::koto::KOTO";
+const MAYA_COINTYPE =
+  "0x3bf0aeb7b9698b18ec7937290a5701088fcd5d43ad11a2564b074d022a6d71ec::maya::MAYA";
 
 const BUCK_COINTYPE =
   "0xce7ff77a83ea0cb6fd39bd8748e2ec89a3f41e8efdc3f4eb123e0ca37b184db2::buck::BUCK";
@@ -65,6 +67,7 @@ export const NORMALIZED_fudSUI_COINTYPE = normalizeStructTag(fudSUI_COINTYPE);
 export const NORMALIZED_kSUI_COINTYPE = normalizeStructTag(kSUI_COINTYPE);
 
 export const NORMALIZED_KOTO_COINTYPE = normalizeStructTag(KOTO_COINTYPE);
+export const NORMALIZED_MAYA_COINTYPE = normalizeStructTag(MAYA_COINTYPE);
 
 export const NORMALIZED_BUCK_COINTYPE = normalizeStructTag(BUCK_COINTYPE);
 
