@@ -43,9 +43,12 @@ import BigNumber from "bignumber.js";
 import { useLDClient } from "launchdarkly-react-client-sdk";
 import { executeAuction } from "shio-sdk";
 
-import { showErrorToast, showInfoToast } from "../lib";
-import { formatAddress } from "../lib/format";
-import { isInMsafeApp } from "../lib/msafe";
+import {
+  formatAddress,
+  isInMsafeApp,
+  showErrorToast,
+  showInfoToast,
+} from "@suilend/frontend-sui";
 
 import { useSettingsContext } from "./SettingsContext";
 

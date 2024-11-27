@@ -2,8 +2,9 @@ import { useEffect, useRef, useState } from "react";
 
 import { CoinMetadata } from "@mysten/sui/client";
 
+import { getCoinMetadataMap } from "@suilend/frontend-sui";
+
 import { useSettingsContext } from "../contexts";
-import { getCoinMetadataMap } from "../lib/coinMetadata";
 
 const useCoinMetadataMap = (coinTypes: string[]) => {
   const { suiClient } = useSettingsContext();

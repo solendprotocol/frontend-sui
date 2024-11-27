@@ -10,7 +10,7 @@ import {
   RPCS,
   Rpc,
   RpcId,
-} from "../lib/constants";
+} from "@suilend/frontend-sui";
 
 interface SettingsContext {
   rpc: Rpc;

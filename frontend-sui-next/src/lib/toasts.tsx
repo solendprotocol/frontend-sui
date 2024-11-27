@@ -1,6 +1,6 @@
 import { ExternalToast, toast as sonnerToast } from "sonner";
 
-import { TOAST_DURATION_MS } from "./constants";
+import { TOAST_DURATION_MS } from "@suilend/frontend-sui";
 
 const onDismiss = (callback: () => void) => {
   for (let i = 0; i < 10; i++) sonnerToast.dismiss();

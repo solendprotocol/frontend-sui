@@ -1,6 +1,6 @@
-# frontend-sui
+# frontend-sui-next
 
-A collection of TypeScript frontend libraries.
+A collection of TypeScript frontend components and hooks.
 
 ## Get started
 

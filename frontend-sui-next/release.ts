@@ -1,9 +1,10 @@
-import fs from "fs";
+const fs = require("fs");
 
-const NAME = "@suilend/frontend-sui";
+const packageJson = require("./package.json");
+
+const NAME = "@suilend/frontend-sui-next";
 
 // 1. Update package.json
-import packageJson from "./package.json";
 const newPackageJson = Object.assign({}, packageJson) as any;
 
 newPackageJson["name"] = NAME;
@@ -15,7 +16,10 @@ const exportsMap: Record<string, string> = {
 };
 const files = (
   fs.readdirSync("./dist/", { recursive: true }) as string[]
-).filter((file) => file !== "index.js" && file.endsWith(".js"));
+).filter(
+  (file) =>
+    file !== "index.js" && (file.endsWith(".js") || file.endsWith(".jsx")),
+);
 for (const file of files) {
   const fileName = file.substring(
     0,

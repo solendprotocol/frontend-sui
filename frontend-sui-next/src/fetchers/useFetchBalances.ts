@@ -4,7 +4,7 @@ import useSWR from "swr";
 
 import { useSettingsContext } from "../contexts/SettingsContext";
 import { useWalletContext } from "../contexts/WalletContext";
-import { showErrorToast } from "../lib";
+import { showErrorToast } from "../lib/toasts";
 
 export default function useFetchBalances() {
   const { suiClient } = useSettingsContext();
