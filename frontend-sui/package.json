@@ -2,7 +2,7 @@
   "name": "@suilend/frontend-sui-local",
   "version": "0.1.72",
   "private": true,
-  "description": "A collection of TypeScript frontend components and libraries used by Suilend and SpringSui",
+  "description": "A collection of TypeScript frontend libraries",
   "author": "Suilend",
   "license": "MIT",
   "main": "./src/index.ts",
