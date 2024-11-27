@@ -75,10 +75,7 @@ export const initializeSuilendSdk = async (
   }
 
   const reserveCoinTypes: string[] = [NORMALIZED_SEND_COINTYPE]; // TEMP until SEND is listed on Suilend
-  const rewardCoinTypes: string[] = [
-    NORMALIZED_KOTO_COINTYPE,
-    NORMALIZED_MAYA_COINTYPE,
-  ];
+  const rewardCoinTypes: string[] = [];
   refreshedRawReserves.forEach((r) => {
     reserveCoinTypes.push(normalizeStructTag(r.coinType.name));
 
@@ -190,7 +187,10 @@ export const initializeSuilendRewards = async (
   );
 
   const reservelessRewardCoinTypes = rewardCoinTypes.filter(
-    (coinType) => !isSendPoints(coinType) && !reserveMap[coinType],
+    (coinType) =>
+      !isSendPoints(coinType) &&
+      coinType !== NORMALIZED_MAYA_COINTYPE &&
+      !reserveMap[coinType],
   );
   const reservelessRewardBirdeyePrices = await Promise.all(
     reservelessRewardCoinTypes.map(fetchBirdeyePrice),
