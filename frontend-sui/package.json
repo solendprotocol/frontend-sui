@@ -1,6 +1,6 @@
 {
   "name": "@suilend/frontend-sui-local",
-  "version": "0.1.75",
+  "version": "0.1.76",
   "private": true,
   "description": "A collection of TypeScript frontend libraries",
   "author": "Suilend",
@@ -27,8 +27,6 @@
   "dependencies": {
     "@mysten/sui": "1.14.3",
     "@pythnetwork/pyth-sui-js": "^2.1.0",
-    "@suilend/sdk": "^1.1.24",
-    "@suilend/springsui-sdk": "^1.0.12",
     "bignumber.js": "^9.1.2",
     "lodash": "^4.17.21",
     "mixpanel-browser": "^2.56.0"
@@ -48,5 +46,9 @@
     "prettier": "^3.3.3",
     "ts-node": "^10.9.2",
     "typescript": "^5.6.3"
+  },
+  "peerDependencies": {
+    "@suilend/sdk": "^1.1.24",
+    "@suilend/springsui-sdk": "^1.0.12"
   }
 }
