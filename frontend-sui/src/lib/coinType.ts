@@ -85,7 +85,9 @@ export const NORMALIZED_LST_COINTYPES = Object.values(
 ).map((info) => info.type); // May include non-reserves
 
 export const NORMALIZED_ECOSYSTEM_LST_COINTYPES =
-  NORMALIZED_LST_COINTYPES.filter((coinType) => !issSui(coinType));
+  NORMALIZED_LST_COINTYPES.filter(
+    (coinType) => normalizeStructTag(coinType) !== NORMALIZED_sSUI_COINTYPE,
+  );
 export const NORMALIZED_MEMECOIN_COINTYPES = [
   NORMALIZED_FUD_COINTYPE,
   NORMALIZED_HIPPO_COINTYPE,
