@@ -38,8 +38,6 @@ const fudSUI_COINTYPE =
 const kSUI_COINTYPE =
   "0x41ff228bfd566f0c707173ee6413962a77e3929588d010250e4e76f0d1cc0ad4::ksui::KSUI";
 
-const KOTO_COINTYPE =
-  "0xa99166e802527eeb5439cbda12b0a02851bf2305d3c96a592b1440014fcb8975::koto::KOTO";
 const MAYA_COINTYPE =
   "0x3bf0aeb7b9698b18ec7937290a5701088fcd5d43ad11a2564b074d022a6d71ec::maya::MAYA";
 
@@ -66,7 +64,6 @@ export const NORMALIZED_NS_COINTYPE = normalizeStructTag(NS_COINTYPE);
 export const NORMALIZED_fudSUI_COINTYPE = normalizeStructTag(fudSUI_COINTYPE);
 export const NORMALIZED_kSUI_COINTYPE = normalizeStructTag(kSUI_COINTYPE);
 
-export const NORMALIZED_KOTO_COINTYPE = normalizeStructTag(KOTO_COINTYPE);
 export const NORMALIZED_MAYA_COINTYPE = normalizeStructTag(MAYA_COINTYPE);
 
 export const NORMALIZED_BUCK_COINTYPE = normalizeStructTag(BUCK_COINTYPE);
@@ -86,6 +83,13 @@ export const NORMALIZED_ETH_COINTYPES = [
 export const NORMALIZED_LST_COINTYPES = Object.values(
   LIQUID_STAKING_INFO_MAP,
 ).map((info) => info.type); // May include non-reserves
+
+export const NORMALIZED_ECOSYSTEM_LST_COINTYPES =
+  NORMALIZED_LST_COINTYPES.filter((coinType) => !issSui(coinType));
+export const NORMALIZED_MEMECOIN_COINTYPES = [
+  NORMALIZED_FUD_COINTYPE,
+  NORMALIZED_HIPPO_COINTYPE,
+];
 
 export const NON_SPONSORED_PYTH_PRICE_FEED_COINTYPES = [
   NORMALIZED_HIPPO_COINTYPE,
@@ -208,6 +212,11 @@ export const isEth = (coinType: string) =>
   NORMALIZED_ETH_COINTYPES.includes(normalizeStructTag(coinType));
 export const isLst = (coinType: string) =>
   NORMALIZED_LST_COINTYPES.includes(normalizeStructTag(coinType));
+
+export const isEcosystemLst = (coinType: string) =>
+  NORMALIZED_ECOSYSTEM_LST_COINTYPES.includes(normalizeStructTag(coinType));
+export const isMemecoin = (coinType: string) =>
+  NORMALIZED_MEMECOIN_COINTYPES.includes(normalizeStructTag(coinType));
 
 export const isCoinType = (text: string) => {
   if (text.includes("-")) return false;

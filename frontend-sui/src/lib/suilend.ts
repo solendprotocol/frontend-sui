@@ -22,7 +22,6 @@ import * as simulate from "@suilend/sdk/utils/simulate";
 import { fetchBirdeyePrice } from "./birdeye";
 import { getCoinMetadataMap } from "./coinMetadata";
 import {
-  NORMALIZED_KOTO_COINTYPE,
   NORMALIZED_MAYA_COINTYPE,
   NORMALIZED_SEND_COINTYPE,
   RESERVES_CUSTOM_ORDER,
