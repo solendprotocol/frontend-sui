@@ -5,11 +5,7 @@ import BigNumber from "bignumber.js";
 
 import { phantom } from "@suilend/sdk/_generated/_framework/reified";
 import { LendingMarket } from "@suilend/sdk/_generated/suilend/lending-market/structs";
-import {
-  LENDING_MARKET_ID,
-  LENDING_MARKET_TYPE,
-  SuilendClient,
-} from "@suilend/sdk/client";
+import { SuilendClient } from "@suilend/sdk/client";
 import { WAD } from "@suilend/sdk/constants";
 import { parseLendingMarket } from "@suilend/sdk/parsers/lendingMarket";
 import {
@@ -31,6 +27,8 @@ import {
 import { formatRewards } from "./liquidityMining";
 
 export const initializeSuilendSdk = async (
+  LENDING_MARKET_ID: string,
+  LENDING_MARKET_TYPE: string,
   suiClient: SuiClient,
   address?: string,
 ) => {
