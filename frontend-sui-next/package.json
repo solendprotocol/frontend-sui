@@ -1,6 +1,6 @@
 {
   "name": "@suilend/frontend-sui-next-local",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "private": true,
   "description": "A collection of TypeScript frontend components and hooks",
   "author": "Suilend",
