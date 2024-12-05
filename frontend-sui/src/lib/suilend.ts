@@ -15,7 +15,7 @@ import {
 import { ParsedReserve } from "@suilend/sdk/parsers/reserve";
 import * as simulate from "@suilend/sdk/utils/simulate";
 
-import { fetchBirdeyePrice } from "./birdeye";
+import { fetchAftermathPrice } from "./aftermath";
 import { getCoinMetadataMap } from "./coinMetadata";
 import {
   NORMALIZED_MAYA_COINTYPE,
@@ -51,26 +51,6 @@ export const initializeSuilendSdk = async (
     new SuiPriceServiceConnection("https://hermes.pyth.network"),
   );
 
-  const reservesWithTemporaryPythPriceFeeds = refreshedRawReserves.filter((r) =>
-    TEMPORARY_PYTH_PRICE_FEED_COINTYPES.includes(
-      normalizeStructTag(r.coinType.name),
-    ),
-  );
-  for (const reserve of reservesWithTemporaryPythPriceFeeds) {
-    let price = new BigNumber(0.01);
-
-    const birdeyePrice = await fetchBirdeyePrice(
-      normalizeStructTag(reserve.coinType.name),
-    );
-    if (birdeyePrice !== undefined) price = birdeyePrice;
-
-    const parsedPrice = BigInt(
-      +new BigNumber(price).times(WAD).integerValue(BigNumber.ROUND_DOWN),
-    );
-    (reserve.price.value as bigint) = parsedPrice;
-    (reserve.smoothedPrice.value as bigint) = parsedPrice;
-  }
-
   const reserveCoinTypes: string[] = [NORMALIZED_SEND_COINTYPE]; // TEMP until SEND is listed on Suilend
   const rewardCoinTypes: string[] = [];
   refreshedRawReserves.forEach((r) => {
@@ -100,6 +80,29 @@ export const initializeSuilendSdk = async (
     ...reserveCoinMetadataMap,
     ...rewardCoinMetadataMap,
   };
+
+  const reservesWithTemporaryPythPriceFeeds = refreshedRawReserves.filter((r) =>
+    TEMPORARY_PYTH_PRICE_FEED_COINTYPES.includes(
+      normalizeStructTag(r.coinType.name),
+    ),
+  );
+  for (const reserve of reservesWithTemporaryPythPriceFeeds) {
+    let price = new BigNumber(0.01);
+
+    const aftermathPrice = await fetchAftermathPrice(
+      normalizeStructTag(reserve.coinType.name),
+      reserveCoinMetadataMap[normalizeStructTag(reserve.coinType.name)],
+    );
+    if (aftermathPrice !== undefined) price = aftermathPrice;
+
+    const parsedPrice = BigInt(
+      +new BigNumber(price).times(WAD).integerValue(BigNumber.ROUND_DOWN),
+    );
+    (reserve.price.value as bigint) = parsedPrice;
+    (reserve.smoothedPrice.value as bigint) = parsedPrice;
+  }
+
+  //
 
   const lendingMarket = parseLendingMarket(
     rawLendingMarket,
@@ -189,13 +192,15 @@ export const initializeSuilendRewards = async (
       coinType !== NORMALIZED_MAYA_COINTYPE &&
       !reserveMap[coinType],
   );
-  // const reservelessRewardBirdeyePrices = await Promise.all(
-  //   reservelessRewardCoinTypes.map(fetchBirdeyePrice),
-  // );
-  // for (let i = 0; i < reservelessRewardCoinTypes.length; i++) {
-  //   rewardPriceMap[reservelessRewardCoinTypes[i]] =
-  //     reservelessRewardBirdeyePrices[i];
-  // }
+  const reservelessRewardAftermathPrices = await Promise.all(
+    reservelessRewardCoinTypes.map((coinType) =>
+      fetchAftermathPrice(coinType, rewardCoinMetadataMap[coinType]),
+    ),
+  );
+  for (let i = 0; i < reservelessRewardCoinTypes.length; i++) {
+    rewardPriceMap[reservelessRewardCoinTypes[i]] =
+      reservelessRewardAftermathPrices[i];
+  }
 
   const rewardMap = formatRewards(
     reserveMap,

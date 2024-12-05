@@ -1,4 +1,4 @@
-export * from "./birdeye";
+export * from "./aftermath";
 export * from "./coinMetadata";
 export * from "./coinType";
 export * from "./constants";
