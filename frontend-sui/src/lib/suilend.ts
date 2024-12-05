@@ -189,13 +189,13 @@ export const initializeSuilendRewards = async (
       coinType !== NORMALIZED_MAYA_COINTYPE &&
       !reserveMap[coinType],
   );
-  const reservelessRewardBirdeyePrices = await Promise.all(
-    reservelessRewardCoinTypes.map(fetchBirdeyePrice),
-  );
-  for (let i = 0; i < reservelessRewardCoinTypes.length; i++) {
-    rewardPriceMap[reservelessRewardCoinTypes[i]] =
-      reservelessRewardBirdeyePrices[i];
-  }
+  // const reservelessRewardBirdeyePrices = await Promise.all(
+  //   reservelessRewardCoinTypes.map(fetchBirdeyePrice),
+  // );
+  // for (let i = 0; i < reservelessRewardCoinTypes.length; i++) {
+  //   rewardPriceMap[reservelessRewardCoinTypes[i]] =
+  //     reservelessRewardBirdeyePrices[i];
+  // }
 
   const rewardMap = formatRewards(
     reserveMap,
