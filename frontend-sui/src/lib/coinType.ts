@@ -123,10 +123,15 @@ export const NORMALIZED_ETH_COINTYPES = [
 export const NORMALIZED_LST_COINTYPES = Object.values(
   LIQUID_STAKING_INFO_MAP,
 ).map((info) => info.type); // May include non-reserves
+
 export const NORMALIZED_ECOSYSTEM_LST_COINTYPES =
   NORMALIZED_LST_COINTYPES.filter(
     (coinType) => normalizeStructTag(coinType) !== NORMALIZED_sSUI_COINTYPE,
   );
+export const NORMALIZED_DEPRECATED_COINTYPES = [
+  NORMALIZED_wUSDC_COINTYPE,
+  NORMALIZED_WETH_COINTYPE,
+];
 export const NORMALIZED_MEMECOIN_COINTYPES = [
   NORMALIZED_FUD_COINTYPE,
   NORMALIZED_HIPPO_COINTYPE,
@@ -288,10 +293,13 @@ export const isEth = (coinType: string) =>
   NORMALIZED_ETH_COINTYPES.includes(normalizeStructTag(coinType));
 export const isLst = (coinType: string) =>
   NORMALIZED_LST_COINTYPES.includes(normalizeStructTag(coinType));
+
 export const isEcosystemLst = (coinType: string) =>
   NORMALIZED_ECOSYSTEM_LST_COINTYPES.includes(normalizeStructTag(coinType));
 export const isMemecoin = (coinType: string) =>
   NORMALIZED_MEMECOIN_COINTYPES.includes(normalizeStructTag(coinType));
+export const isDeprecated = (coinType: string) =>
+  NORMALIZED_DEPRECATED_COINTYPES.includes(normalizeStructTag(coinType));
 
 export const isCoinType = (text: string) => {
   if (text.includes("-")) return false;
@@ -305,6 +313,7 @@ export const isCoinType = (text: string) => {
 export const RESERVES_CUSTOM_ORDER = [
   NORMALIZED_sSUI_COINTYPE,
 
+  // Main Assets - Ecosystem LSTs
   NORMALIZED_mSUI_COINTYPE,
   NORMALIZED_fudSUI_COINTYPE,
   NORMALIZED_kSUI_COINTYPE,
@@ -312,17 +321,21 @@ export const RESERVES_CUSTOM_ORDER = [
 
   NORMALIZED_SUI_COINTYPE,
   NORMALIZED_USDC_COINTYPE,
-  NORMALIZED_wUSDC_COINTYPE,
   NORMALIZED_USDT_COINTYPE,
   NORMALIZED_AUSD_COINTYPE,
   NORMALIZED_suiETH_COINTYPE,
-  NORMALIZED_WETH_COINTYPE,
   NORMALIZED_SOL_COINTYPE,
+
+  // Main Assets - Deprecated
+  NORMALIZED_wUSDC_COINTYPE,
+  NORMALIZED_WETH_COINTYPE,
 
   NORMALIZED_DEEP_COINTYPE,
   NORMALIZED_NS_COINTYPE,
 
+  // Isolated Assets - Memecoins
   NORMALIZED_FUD_COINTYPE,
   NORMALIZED_HIPPO_COINTYPE,
+
   // TODO: Add SEND
 ];
