@@ -15,11 +15,14 @@ import {
 import { ParsedReserve } from "@suilend/sdk/parsers/reserve";
 import * as simulate from "@suilend/sdk/utils/simulate";
 
+import { getPrice } from "./api";
 import { getCoinMetadataMap } from "./coinMetadata";
 import {
+  NORMALIZED_MAYA_COINTYPE,
   NORMALIZED_SEND_COINTYPE,
   RESERVES_CUSTOM_ORDER,
   TEMPORARY_PYTH_PRICE_FEED_COINTYPES,
+  isSendPoints,
 } from "./coinType";
 import { formatRewards } from "./liquidityMining";
 
@@ -84,13 +87,12 @@ export const initializeSuilendSdk = async (
     ),
   );
   for (const reserve of reservesWithTemporaryPythPriceFeeds) {
-    const price = new BigNumber(0.01);
+    let price = 0.01;
 
-    // const aftermathPrice = await fetchAftermathPrice(
-    //   normalizeStructTag(reserve.coinType.name),
-    //   reserveCoinMetadataMap[normalizeStructTag(reserve.coinType.name)],
-    // );
-    // if (aftermathPrice !== undefined) price = aftermathPrice;
+    const birdeyePrice = await getPrice(
+      normalizeStructTag(reserve.coinType.name),
+    );
+    if (birdeyePrice !== undefined) price = birdeyePrice;
 
     const parsedPrice = BigInt(
       +new BigNumber(price).times(WAD).integerValue(BigNumber.ROUND_DOWN),
@@ -183,21 +185,21 @@ export const initializeSuilendRewards = async (
     {},
   );
 
-  // const reservelessRewardCoinTypes = rewardCoinTypes.filter(
-  //   (coinType) =>
-  //     !isSendPoints(coinType) &&
-  //     coinType !== NORMALIZED_MAYA_COINTYPE &&
-  //     !reserveMap[coinType],
-  // );
-  // const reservelessRewardAftermathPrices = await Promise.all(
-  //   reservelessRewardCoinTypes.map((coinType) =>
-  //     fetchAftermathPrice(coinType, rewardCoinMetadataMap[coinType]),
-  //   ),
-  // );
-  // for (let i = 0; i < reservelessRewardCoinTypes.length; i++) {
-  //   rewardPriceMap[reservelessRewardCoinTypes[i]] =
-  //     reservelessRewardAftermathPrices[i];
-  // }
+  const reservelessRewardCoinTypes = rewardCoinTypes.filter(
+    (coinType) =>
+      !isSendPoints(coinType) &&
+      coinType !== NORMALIZED_MAYA_COINTYPE &&
+      !reserveMap[coinType],
+  );
+  const reservelessRewardBirdeyePrices = await Promise.all(
+    reservelessRewardCoinTypes.map((coinType) => getPrice(coinType)),
+  );
+  for (let i = 0; i < reservelessRewardCoinTypes.length; i++) {
+    const birdeyePrice = reservelessRewardBirdeyePrices[i];
+    if (birdeyePrice === undefined) continue;
+
+    rewardPriceMap[reservelessRewardCoinTypes[i]] = new BigNumber(birdeyePrice);
+  }
 
   const rewardMap = formatRewards(
     reserveMap,
