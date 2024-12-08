@@ -1,6 +1,6 @@
 {
   "name": "@suilend/frontend-sui-local",
-  "version": "0.1.93",
+  "version": "0.1.94",
   "private": true,
   "description": "A collection of TypeScript frontend libraries",
   "author": "Suilend",
@@ -28,6 +28,7 @@
     "@mysten/sui": "1.14.3",
     "@pythnetwork/pyth-sui-js": "^2.1.0",
     "bignumber.js": "^9.1.2",
+    "date-fns": "^4.1.0",
     "lodash": "^4.17.21",
     "mixpanel-browser": "^2.56.0",
     "next": "^15.0.3"
