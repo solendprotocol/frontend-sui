@@ -20,6 +20,7 @@ import { getCoinMetadataMap } from "./coinMetadata";
 import {
   NORMALIZED_MAYA_COINTYPE,
   NORMALIZED_SEND_COINTYPE,
+  NORMALIZED_SEND_POINTS_S2_COINTYPE,
   RESERVES_CUSTOM_ORDER,
   TEMPORARY_PYTH_PRICE_FEED_COINTYPES,
   isSendPoints,
@@ -52,7 +53,7 @@ export const initializeSuilendSdk = async (
   );
 
   const reserveCoinTypes: string[] = [NORMALIZED_SEND_COINTYPE]; // TEMP until SEND is listed on Suilend
-  const rewardCoinTypes: string[] = [];
+  const rewardCoinTypes: string[] = [NORMALIZED_SEND_POINTS_S2_COINTYPE]; // TEMP until S2 starts
   refreshedRawReserves.forEach((r) => {
     reserveCoinTypes.push(normalizeStructTag(r.coinType.name));
 
