@@ -52,8 +52,8 @@ export const initializeSuilendSdk = async (
     new SuiPriceServiceConnection("https://hermes.pyth.network"),
   );
 
-  const reserveCoinTypes: string[] = [NORMALIZED_SEND_COINTYPE]; // TEMP until SEND is listed on Suilend
-  const rewardCoinTypes: string[] = [NORMALIZED_SEND_POINTS_S2_COINTYPE]; // TEMP until S2 starts
+  const reserveCoinTypes: string[] = [];
+  const rewardCoinTypes: string[] = [];
   refreshedRawReserves.forEach((r) => {
     reserveCoinTypes.push(normalizeStructTag(r.coinType.name));
 
