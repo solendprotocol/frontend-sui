@@ -229,7 +229,7 @@ export const COINTYPE_SYMBOL_MAP: Record<string, string> = {
 };
 
 export const COINTYPE_COLOR_MAP = {
-  [NORMALIZED_BETA_SEND_COINTYPE]: "#CADBFF",
+  [NORMALIZED_BETA_SEND_COINTYPE]: "#CADBFF", // TODO
 
   [NORMALIZED_SEND_COINTYPE]: "#CADBFF",
 
@@ -255,7 +255,7 @@ export const COINTYPE_COLOR_MAP = {
 };
 
 export const COINTYPE_PYTH_PRICE_FEED_SYMBOL_MAP: Record<string, string> = {
-  [NORMALIZED_BETA_SEND_COINTYPE]: "Crypto.SEND/USD",
+  [NORMALIZED_BETA_SEND_COINTYPE]: "Crypto.SEND/USD", // TODO
 
   [NORMALIZED_SEND_COINTYPE]: "Crypto.SEND/USD",
 
@@ -293,6 +293,8 @@ export const isSendPointsS1 = (coinType: string) =>
   normalizeStructTag(coinType) === NORMALIZED_SEND_POINTS_S1_COINTYPE;
 export const isSendPointsS2 = (coinType: string) =>
   normalizeStructTag(coinType) === NORMALIZED_SEND_POINTS_S2_COINTYPE;
+export const isSend = (coinType: string) =>
+  normalizeStructTag(coinType) === NORMALIZED_SEND_COINTYPE;
 export const isSui = (coinType: string) =>
   normalizeStructTag(coinType) === NORMALIZED_SUI_COINTYPE;
 export const issSui = (coinType: string) =>
