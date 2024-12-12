@@ -22,6 +22,8 @@ export default function useFetchBalances() {
         .map((cb) => ({ ...cb, coinType: normalizeStructTag(cb.coinType) }))
         .sort((a, b) => (a.coinType < b.coinType ? -1 : 1));
 
+      console.log("XXX rawBalances:", rawBalances);
+
       for (const rawBalance of rawBalances) {
         const totalBalance = new BigNumber(rawBalance.totalBalance);
         if (totalBalance.gt(0)) balancesMap[rawBalance.coinType] = totalBalance;
