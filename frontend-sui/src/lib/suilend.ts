@@ -21,7 +21,6 @@ import {
   NORMALIZED_MAYA_COINTYPE,
   RESERVES_CUSTOM_ORDER,
   TEMPORARY_PYTH_PRICE_FEED_COINTYPES,
-  isSend,
   isSendPoints,
 } from "./coinType";
 import { formatRewards } from "./liquidityMining";
@@ -87,20 +86,18 @@ export const initializeSuilendSdk = async (
     ),
   );
   for (const reserve of reservesWithTemporaryPythPriceFeeds) {
-    let price = 0.01;
-
-    if (!isSend(normalizeStructTag(reserve.coinType.name))) {
-      const birdeyePrice = await getPrice(
-        normalizeStructTag(reserve.coinType.name),
-      );
-      if (birdeyePrice !== undefined) price = birdeyePrice;
-    }
-
-    const parsedPrice = BigInt(
-      +new BigNumber(price).times(WAD).integerValue(BigNumber.ROUND_DOWN),
+    const birdeyePrice = await getPrice(
+      normalizeStructTag(reserve.coinType.name),
     );
-    (reserve.price.value as bigint) = parsedPrice;
-    (reserve.smoothedPrice.value as bigint) = parsedPrice;
+    if (birdeyePrice === undefined) continue;
+
+    const parsedBirdeyePrice = BigInt(
+      +new BigNumber(birdeyePrice)
+        .times(WAD)
+        .integerValue(BigNumber.ROUND_DOWN),
+    );
+    (reserve.price.value as bigint) = parsedBirdeyePrice;
+    (reserve.smoothedPrice.value as bigint) = parsedBirdeyePrice;
   }
 
   //
