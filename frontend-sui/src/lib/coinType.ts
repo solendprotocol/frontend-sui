@@ -139,9 +139,7 @@ export const NON_SPONSORED_PYTH_PRICE_FEED_COINTYPES = [
   NORMALIZED_HIPPO_COINTYPE,
   NORMALIZED_NS_COINTYPE,
 ];
-export const TEMPORARY_PYTH_PRICE_FEED_COINTYPES: string[] = [
-  NORMALIZED_SEND_COINTYPE,
-];
+export const TEMPORARY_PYTH_PRICE_FEED_COINTYPES: string[] = [];
 
 // Logos (128x128)
 export const COINTYPE_LOGO_MAP = {
@@ -271,6 +269,7 @@ export const isSendPointsS2 = (coinType: string) =>
   normalizeStructTag(coinType) === NORMALIZED_SEND_POINTS_S2_COINTYPE;
 export const isSend = (coinType: string) =>
   normalizeStructTag(coinType) === NORMALIZED_SEND_COINTYPE;
+
 export const isSui = (coinType: string) =>
   normalizeStructTag(coinType) === NORMALIZED_SUI_COINTYPE;
 export const issSui = (coinType: string) =>
