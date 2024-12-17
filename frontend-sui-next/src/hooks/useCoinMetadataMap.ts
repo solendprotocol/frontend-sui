@@ -24,7 +24,7 @@ const useCoinMetadataMap = (coinTypes: string[]) => {
       coinTypesBeingFetchedRef.current.push(...filteredCoinTypes);
 
       const _coinMetadataMap = await getCoinMetadataMap(
-        suiClient,
+        suiClient as any,
         filteredCoinTypes,
       );
       setCoinMetadataMap((prev) => ({
