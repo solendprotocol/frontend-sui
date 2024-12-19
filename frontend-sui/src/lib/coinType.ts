@@ -213,6 +213,7 @@ export const COINTYPE_SYMBOL_MAP: Record<string, string> = {
   [NORMALIZED_wUSDC_COINTYPE]: "wUSDC",
   [NORMALIZED_SOL_COINTYPE]: "SOL",
   [NORMALIZED_suiETH_COINTYPE]: "suiETH",
+  [NORMALIZED_upSUI_COINTYPE]: "upSUI",
 };
 
 export const COINTYPE_COLOR_MAP = {
