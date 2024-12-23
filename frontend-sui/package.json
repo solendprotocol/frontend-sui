@@ -1,6 +1,6 @@
 {
   "name": "@suilend/frontend-sui-local",
-  "version": "0.2.16",
+  "version": "0.2.17",
   "private": true,
   "description": "A collection of TypeScript frontend libraries",
   "author": "Suilend",
@@ -49,7 +49,7 @@
     "typescript": "^5.6.3"
   },
   "peerDependencies": {
-    "@suilend/sdk": "^1.1.25",
+    "@suilend/sdk": "^1.1.27",
     "@suilend/springsui-sdk": "^1.0.14",
     "date-fns": "^4.1.0"
   }
