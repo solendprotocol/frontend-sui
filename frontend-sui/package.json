@@ -1,6 +1,6 @@
 {
   "name": "@suilend/frontend-sui-local",
-  "version": "0.2.17",
+  "version": "0.2.18",
   "private": true,
   "description": "A collection of TypeScript frontend libraries",
   "author": "Suilend",
