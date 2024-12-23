@@ -1,6 +1,10 @@
 import { SuiTransactionBlockResponse } from "@mysten/sui/client";
+import { Transaction, TransactionResult } from "@mysten/sui/transactions";
 import { SUI_DECIMALS, normalizeStructTag } from "@mysten/sui/utils";
 import BigNumber from "bignumber.js";
+
+import { SuilendClient } from "@suilend/sdk";
+import { ObligationOwnerCap } from "@suilend/sdk/_generated/suilend/lending-market/structs";
 
 import { Token } from "./coinMetadata";
 import { isSui } from "./coinType";
@@ -37,4 +41,31 @@ export const getBalanceChange = (
     .div(10 ** token.decimals)
     .plus(isSui(token.coinType) ? getTotalGasFee(res) : 0)
     .times(multiplier);
+};
+
+export const createObligationIfNoneExists = (
+  suilendClient: SuilendClient,
+  transaction: Transaction,
+  obligationOwnerCap?: ObligationOwnerCap<string>,
+): { obligationOwnerCapId: string | TransactionResult; didCreate: boolean } => {
+  let obligationOwnerCapId;
+  let didCreate = false;
+  if (obligationOwnerCap) obligationOwnerCapId = obligationOwnerCap.id;
+  else {
+    obligationOwnerCapId = suilendClient.createObligation(transaction);
+    didCreate = true;
+  }
+
+  return { obligationOwnerCapId, didCreate };
+};
+
+export const sendObligationToUser = (
+  obligationOwnerCapId: string | TransactionResult,
+  address: string,
+  transaction: Transaction,
+) => {
+  transaction.transferObjects(
+    [obligationOwnerCapId],
+    transaction.pure.address(address),
+  );
 };
