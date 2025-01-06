@@ -1,6 +1,6 @@
 {
   "name": "@suilend/frontend-sui-next-local",
-  "version": "0.1.10",
+  "version": "0.1.11",
   "private": true,
   "description": "A collection of TypeScript frontend components and hooks",
   "author": "Suilend",
@@ -66,8 +66,6 @@
     "typescript": "^5.6.3"
   },
   "peerDependencies": {
-    "@suilend/frontend-sui": "^0.2.18",
-    "@suilend/sdk": "^1.1.27",
-    "@suilend/springsui-sdk": "^1.0.14"
+    "@suilend/frontend-sui": "^0.2.20"
   }
 }
