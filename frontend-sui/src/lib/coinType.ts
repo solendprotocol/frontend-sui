@@ -270,7 +270,7 @@ export const COINTYPE_PYTH_PRICE_FEED_SYMBOL_MAP: Record<string, string> = {
   [NORMALIZED_BLUE_COINTYPE]: "Crypto.BLUE/USD",
   [NORMALIZED_upSUI_COINTYPE]: "Crypto.SUI/USD", // Same as SUI
   [NORMALIZED_suiUSDT_COINTYPE]: "Crypto.USDT/USD", // Same as wUSDT
-  [NORMALIZED_BUCK_COINTYPE]: "Crypto.BUCK/USD",
+  [NORMALIZED_BUCK_COINTYPE]: "Crypto.USDC/USD", // Same as wUSDC
 };
 export const getPythOracleUrl = (coinType: string) => {
   const symbol = COINTYPE_PYTH_PRICE_FEED_SYMBOL_MAP[coinType];
@@ -322,9 +322,10 @@ export const isCoinType = (text: string) => {
 };
 
 export const RESERVES_CUSTOM_ORDER = [
+  // Main assets
   NORMALIZED_sSUI_COINTYPE,
 
-  // Main Assets - Ecosystem LSTs
+  // Main assets - Ecosystem LSTs
   NORMALIZED_mSUI_COINTYPE,
   NORMALIZED_fudSUI_COINTYPE,
   NORMALIZED_kSUI_COINTYPE,
@@ -339,17 +340,18 @@ export const RESERVES_CUSTOM_ORDER = [
   NORMALIZED_suiETH_COINTYPE,
   NORMALIZED_SOL_COINTYPE,
 
-  // Main Assets - Deprecated
-  NORMALIZED_wUSDC_COINTYPE,
-  NORMALIZED_WETH_COINTYPE,
-
+  // Isolated assets
   NORMALIZED_SEND_COINTYPE,
   NORMALIZED_DEEP_COINTYPE,
   NORMALIZED_BLUE_COINTYPE, // Not listed
   NORMALIZED_NS_COINTYPE,
   NORMALIZED_BUCK_COINTYPE,
 
-  // Isolated Assets - Memecoins
+  // Isolated assets - Memecoins
   NORMALIZED_FUD_COINTYPE,
   NORMALIZED_HIPPO_COINTYPE,
+
+  // Deprecated assets
+  NORMALIZED_wUSDC_COINTYPE,
+  NORMALIZED_WETH_COINTYPE,
 ];
