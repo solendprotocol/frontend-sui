@@ -8,6 +8,7 @@ export enum LstId {
   trevinSUI = "trevinSUI",
   upSUI = "upSUI",
 
+  test1SUI = "test1SUI",
   ripleysSUI = "ripleysSUI",
 }
 
@@ -49,6 +50,12 @@ export const LIQUID_STAKING_INFO_MAP: Record<LstId, LiquidStakingObjectInfo> = {
       "0x3302addc63a941747c713b3799a6915aa3232fc9b94c76ae5c5315fbdb1d9286",
   },
 
+  [LstId.test1SUI]: {
+    id: "0xa4b536491aa3a8c02c43a1a1f31c6564579171001d835570bb52978b81c8aa4b",
+    type: "0xb5825ab8dc9e72e1f8e6b3fa568407474821c2d9513b596e6639f468eb1f469::test1_sui::TEST1_SUI",
+    weightHookId:
+      "0xd67b194bcf9c72eefc1be8802a79f44959817eb1952432ac57c7045507e7240b",
+  },
   [LstId.ripleysSUI]: {
     id: "0x50f983c5257f578a2340ff45f6c82f3d6fc358a3e7a8bc57dd112d280badbfd6",
     type: "0xdc0c8026236f1be172ba03d7d689bfd663497cc5a730bf367bfb2e2c72ec6df8::ripleys::RIPLEYS",
