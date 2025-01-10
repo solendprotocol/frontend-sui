@@ -545,8 +545,10 @@ function Inner({ children }: PropsWithChildren) {
         const res2 = await suiClient.waitForTransaction({
           digest: res1.digest,
           options: {
-            showEffects: true,
             showBalanceChanges: true,
+            showEffects: true,
+            showEvents: true,
+            showObjectChanges: true,
           },
         });
         if (
