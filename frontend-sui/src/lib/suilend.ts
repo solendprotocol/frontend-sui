@@ -3,8 +3,6 @@ import { normalizeStructTag } from "@mysten/sui/utils";
 import { SuiPriceServiceConnection } from "@pythnetwork/pyth-sui-js";
 import BigNumber from "bignumber.js";
 
-import { phantom } from "@suilend/sdk/_generated/_framework/reified";
-import { LendingMarket } from "@suilend/sdk/_generated/suilend/lending-market/structs";
 import { SuilendClient } from "@suilend/sdk/client";
 import { WAD } from "@suilend/sdk/constants";
 import { parseLendingMarket } from "@suilend/sdk/parsers/lendingMarket";
@@ -26,25 +24,14 @@ import {
 import { formatRewards } from "./liquidityMining";
 
 export const initializeSuilendSdk = async (
-  LENDING_MARKET_ID: string,
-  LENDING_MARKET_TYPE: string,
   suiClient: SuiClient,
+  suilendClient: SuilendClient,
   address?: string,
 ) => {
   const now = Math.floor(Date.now() / 1000);
-  const rawLendingMarket = await LendingMarket.fetch(
-    suiClient,
-    phantom(LENDING_MARKET_TYPE),
-    LENDING_MARKET_ID,
-  );
-
-  const suilendClient = await SuilendClient.initializeWithLendingMarket(
-    rawLendingMarket,
-    suiClient,
-  );
 
   const refreshedRawReserves = await simulate.refreshReservePrice(
-    rawLendingMarket.reserves.map((r) =>
+    suilendClient.lendingMarket.reserves.map((r) =>
       simulate.compoundReserveInterest(r, now),
     ),
     new SuiPriceServiceConnection("https://hermes.pyth.network"),
@@ -100,10 +87,8 @@ export const initializeSuilendSdk = async (
     (reserve.smoothedPrice.value as bigint) = parsedBirdeyePrice;
   }
 
-  //
-
   const lendingMarket = parseLendingMarket(
-    rawLendingMarket,
+    suilendClient.lendingMarket,
     refreshedRawReserves,
     coinMetadataMap,
     now,
@@ -128,7 +113,7 @@ export const initializeSuilendSdk = async (
   if (address) {
     obligationOwnerCaps = await SuilendClient.getObligationOwnerCaps(
       address,
-      rawLendingMarket.$typeArgs,
+      suilendClient.lendingMarket.$typeArgs,
       suiClient,
     );
 
@@ -137,7 +122,7 @@ export const initializeSuilendSdk = async (
         obligationOwnerCaps.map((ownerCap) =>
           SuilendClient.getObligation(
             ownerCap.obligationId,
-            rawLendingMarket.$typeArgs,
+            suilendClient.lendingMarket.$typeArgs,
             suiClient,
           ),
         ),
