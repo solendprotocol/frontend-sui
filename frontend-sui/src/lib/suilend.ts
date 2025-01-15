@@ -23,7 +23,7 @@ import {
 } from "./coinType";
 import { formatRewards } from "./liquidityMining";
 
-export const initializeSuilendSdk = async (
+export const initializeSuilend = async (
   suiClient: SuiClient,
   suilendClient: SuilendClient,
   address?: string,
@@ -138,8 +138,6 @@ export const initializeSuilendSdk = async (
   }
 
   return {
-    suilendClient,
-
     lendingMarket,
     refreshedRawReserves,
     reserveMap,
